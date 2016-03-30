@@ -28,7 +28,7 @@ var api = new ParseServer({
       },
       ios: [
         {
-          pfx: '/cert_keyCertificates.p12', // The filename of private key and certificate in PFX or PKCS12 format from disk  
+          pfx: '/cert_key/Certificates.p12', // The filename of private key and certificate in PFX or PKCS12 format from disk  
           cert: '', // If not using the .p12 format, the path to the certificate PEM to load from disk
           key: '', // If not using the .p12 format, the path to the private key PEM to load from disk
           bundleId: 'com.gStudio.PusheTest', // The bundle identifier associate with your app
