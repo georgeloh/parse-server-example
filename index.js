@@ -5,19 +5,20 @@ var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var path = require('path');
 
-var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
+var databaseUri = process.env.DATABASE_URI || process.env.MONGOLAB_URI;
 
 if (!databaseUri) {
   console.log('DATABASE_URI not specified, falling back to localhost.');
 }
 
 var api = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
+  // databaseURI: databaseUri || 'mongodb://54.65.177.27:27017/parsedb',
+  databaseURI: databaseUri || 'mongodb://admin:georjohn@ds025409.mlab.com:25409/heroku_1k4ls9zj',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-  appId: process.env.APP_ID || 'myAppId',
-  dotNetKey: process.env.DOTNET_KEY || '', 
-  masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
-  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
+  dotNetKey: process.env.DOTNET_KEY || 'IEZ0O8pNjd6lj3Ip55NsfghX94qcwRenzqIGZmVx', 
+  appId: process.env.APP_ID || 'uNqU3IHOEHAis8ixttgvThUo70042cEbRzFBlGDv',
+  masterKey: process.env.MASTER_KEY || 'jZYYRxqWOeC1r9iBjRt3VDltWWIWHqiMYIXaxZla', //Add your master key here. Keep it secret!
+  serverURL: process.env.SERVER_URL || 'http://54.65.177.27:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   },
@@ -35,7 +36,7 @@ var api = new ParseServer({
           production: false // Specifies which environment to connect to: Production (if true) or Sandbox
         }
         // {
-        //   pfx: '/cert_key/Certificates.p12', // The filename of private key and certificate in PFX or PKCS12 format from disk  
+        //   pfx: './cert_key/Certificates.p12', // The filename of private key and certificate in PFX or PKCS12 format from disk  
         //   cert: '', // If not using the .p12 format, the path to the certificate PEM to load from disk
         //   key: '', // If not using the .p12 format, the path to the private key PEM to load from disk
         //   bundleId: 'com.gStudio.PusheTest', // The bundle identifier associate with your app
@@ -59,7 +60,7 @@ app.use(mountPath, api);
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
-  res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
+  res.status(200).send('Make sure to star the parse-server repo on GitHub!');
 });
 
 // There will be a test page available on the /test path of your server url
@@ -76,3 +77,4 @@ httpServer.listen(port, function() {
 
 // This will enable the Live Query real-time server
 ParseServer.createLiveQueryServer(httpServer);
+
